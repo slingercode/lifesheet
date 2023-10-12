@@ -1,22 +1,42 @@
 {
   "name": "lifesheet",
+  "version": "0.1.0",
   "private": true,
   "sideEffects": false,
   "type": "module",
+  "license": "MIT",
+  "description": "Personal data",
+  "author": {
+    "name": "Noel Espino Córdova",
+    "url": "https://ednoesco.com",
+    "email": "hi@ednoesco.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/slingercode/lifesheet"
+  },
   "scripts": {
     "build": "remix build",
     "dev": "remix dev --manual",
-    "start": "remix-serve ./build/index.js",
-    "typecheck": "tsc"
+    "start": "remix-serve ./build/index.js"
   },
   "dependencies": {
+    "@radix-ui/react-dropdown-menu": "^2.0.6",
+    "@radix-ui/react-slot": "^1.0.2",
     "@remix-run/css-bundle": "^2.0.1",
     "@remix-run/node": "^2.0.1",
     "@remix-run/react": "^2.0.1",
     "@remix-run/serve": "^2.0.1",
+    "class-variance-authority": "^0.7.0",
+    "clsx": "^2.0.0",
     "isbot": "^3.6.8",
+    "lucide-react": "^0.285.0",
+    "next-themes": "^0.2.1",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "tailwind-merge": "^1.14.0",
+    "tailwindcss": "^3.3.3",
+    "tailwindcss-animate": "^1.0.7"
   },
   "devDependencies": {
     "@remix-run/dev": "^2.0.1",
@@ -24,6 +44,8 @@
     "@types/react": "^18.2.20",
     "@types/react-dom": "^18.2.7",
     "eslint": "^8.38.0",
+    "prettier": "^3.0.3",
+    "prettier-plugin-tailwindcss": "^0.5.5",
     "typescript": "^5.1.6"
   },
   "engines": {
