@@ -1,4 +1,7 @@
-import type { MetaFunction } from "@remix-run/node";
+import { json, type MetaFunction } from "@remix-run/node";
+import { useLoaderData } from "@remix-run/react";
+
+import { getData } from "~/db";
 
 export const meta: MetaFunction = () => {
   return [
@@ -7,6 +10,24 @@ export const meta: MetaFunction = () => {
   ];
 };
 
+export async function loader() {
+  const data = await getData();
+
+  return json({ data });
+}
+
 export default function Index() {
-  return <div />;
+  const { data } = useLoaderData<typeof loader>();
+
+  return (
+    <div>
+      {data.map(({ id, question, formatted, category }) => (
+        <div key={id}>
+          <p>{question}</p>
+          <p>{formatted}</p>
+          <p>{category}</p>
+        </div>
+      ))}
+    </div>
+  );
 }
