@@ -1,0 +1,68 @@
+{
+  "version": "5",
+  "dialect": "pg",
+  "id": "a3a62fca-a711-4b98-9b04-9d3b417a7b66",
+  "prevId": "00000000-0000-0000-0000-000000000000",
+  "tables": {
+    "lifesheet": {
+      "name": "lifesheet",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "bigserial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "category": {
+          "name": "category",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "question": {
+          "name": "question",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "response_string": {
+          "name": "response_string",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "response_boolean": {
+          "name": "response_boolean",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "response_number": {
+          "name": "response_number",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "timestamp": {
+          "name": "timestamp",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    }
+  },
+  "enums": {},
+  "schemas": {},
+  "_meta": {
+    "schemas": {},
+    "tables": {},
+    "columns": {}
+  }
+}
