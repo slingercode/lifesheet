@@ -1,4 +1,5 @@
 import { cssBundleHref } from "@remix-run/css-bundle";
+import { json } from "@remix-run/node";
 import {
   Links,
   LiveReload,
@@ -6,20 +7,34 @@ import {
   Outlet,
   Scripts,
   ScrollRestoration,
+  useLoaderData,
 } from "@remix-run/react";
 
 import styles from "./globals.css";
 import { Header } from "./components";
+import { auth } from "./session/auth.server";
 import { ThemeProvider } from "./theme.provider";
 
-import type { LinksFunction } from "@remix-run/node";
+import type { LinksFunction, LoaderFunctionArgs } from "@remix-run/node";
 
 export const links: LinksFunction = () => [
   { rel: "stylesheet", href: styles },
   ...(cssBundleHref ? [{ rel: "stylesheet", href: cssBundleHref }] : []),
 ];
 
+export const loader = async ({ request }: LoaderFunctionArgs) => {
+  try {
+    await auth(request);
+
+    return json({ session: true });
+  } catch (error) {
+    return json({ session: false });
+  }
+};
+
 export default function App() {
+  const { session } = useLoaderData<typeof loader>();
+
   return (
     <html suppressHydrationWarning lang="en">
       <head>
@@ -30,7 +45,7 @@ export default function App() {
       </head>
       <body>
         <ThemeProvider enableSystem attribute="class" defaultTheme="system">
-          <Header />
+          <Header session={session} />
 
           <main className="w-screen">
             <Outlet />
