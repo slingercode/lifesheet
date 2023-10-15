@@ -10,6 +10,9 @@ import {
   useLoaderData,
 } from "@remix-run/react";
 
+import { TooltipProvider } from "~/ui/tooltip";
+
+import { connectDb } from "./db";
 import styles from "./globals.css";
 import { Header } from "./components";
 import { auth } from "./session/auth.server";
@@ -25,15 +28,20 @@ export const links: LinksFunction = () => [
 export const loader = async ({ request }: LoaderFunctionArgs) => {
   try {
     await auth(request);
+    const db = connectDb();
 
-    return json({ session: true });
+    if (db === undefined) {
+      return json({ session: true, db: false });
+    }
+
+    return json({ session: true, db: true });
   } catch (error) {
-    return json({ session: false });
+    return json({ session: false, db: false });
   }
 };
 
 export default function App() {
-  const { session } = useLoaderData<typeof loader>();
+  const { session, db } = useLoaderData<typeof loader>();
 
   return (
     <html suppressHydrationWarning lang="en">
@@ -45,11 +53,13 @@ export default function App() {
       </head>
       <body>
         <ThemeProvider enableSystem attribute="class" defaultTheme="system">
-          <Header session={session} />
+          <TooltipProvider>
+            <Header session={session} db={db} />
 
-          <main className="w-screen">
-            <Outlet />
-          </main>
+            <main className="w-screen">
+              <Outlet />
+            </main>
+          </TooltipProvider>
         </ThemeProvider>
 
         <ScrollRestoration />

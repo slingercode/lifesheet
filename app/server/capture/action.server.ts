@@ -32,7 +32,7 @@ export const action = async ({ request }: ActionFunctionArgs) => {
 
       work: {
         work: work !== 0 ? work : undefined,
-        productive,
+        productive: productive !== 0 ? productive : undefined,
       },
       misc: {
         todayWas,

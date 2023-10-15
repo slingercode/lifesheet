@@ -1,4 +1,5 @@
 import { Form } from "@remix-run/react";
+import { ChevronsUpDown } from "lucide-react";
 
 import { Input } from "~/ui/input";
 import { Label } from "~/ui/label";
@@ -67,10 +68,13 @@ export default function Capture() {
               <SelectValue placeholder="..." />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="happy">happy</SelectItem>
-              <SelectItem value="anxious">anxious</SelectItem>
-              <SelectItem value="meeh">meeh</SelectItem>
-              <SelectItem value="sad">sad</SelectItem>
+              <SelectItem value="excited">Excited</SelectItem>
+              <SelectItem value="happy">Happy</SelectItem>
+              <SelectItem value="anxious">Anxious</SelectItem>
+              <SelectItem value="meeh">Meeh</SelectItem>
+              <SelectItem value="sad">Sad</SelectItem>
+              <SelectItem value="overwhelmed">Overwhelmed</SelectItem>
+              <SelectItem value="sick">Sick</SelectItem>
             </SelectContent>
           </Select>
         </div>
@@ -82,12 +86,17 @@ export default function Capture() {
 
         <div>
           <Label htmlFor="work">Work time</Label>
-          <Input type="work" step="0.01" name="work" placeholder="..." />
+          <Input type="number" step="0.01" name="work" placeholder="..." />
         </div>
 
         <div>
           <Label htmlFor="productive">Productive time</Label>
-          <Input type="work" step="0.01" name="productive" placeholder="..." />
+          <Input
+            type="number"
+            step="0.01"
+            name="productive"
+            placeholder="..."
+          />
         </div>
       </div>
 
@@ -105,7 +114,7 @@ export default function Capture() {
               <SelectItem value="sunny">Sunny</SelectItem>
               <SelectItem value="cloudy">Cloudy</SelectItem>
               <SelectItem value="rainy">Rainy</SelectItem>
-              <SelectItem value="mixed">mixed(cloudy/sunny)</SelectItem>
+              <SelectItem value="mixed">Mixed (cloudy / sunny)</SelectItem>
             </SelectContent>
           </Select>
         </div>
@@ -113,8 +122,15 @@ export default function Capture() {
 
       {/* LOL */}
       <Collapsible>
-        <CollapsibleTrigger className="pt-3">
-          League of legends
+        <CollapsibleTrigger asChild>
+          <Button
+            type="button"
+            variant="ghost"
+            className="flex w-full items-center justify-between md:justify-center"
+          >
+            League of legends
+            <ChevronsUpDown className="ml-3 h-4 w-4" />
+          </Button>
         </CollapsibleTrigger>
         <CollapsibleContent className="grid gap-5 pt-5">
           <div>

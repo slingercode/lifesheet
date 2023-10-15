@@ -6,6 +6,18 @@ import { data } from "./schemas.server";
 
 import type { PgInsertData } from "./schemas.server";
 
+export const connectDb = () => {
+  try {
+    const queryClient = postgres(process.env.POSTGRES_URL!, {
+      ssl: "require",
+    });
+
+    return queryClient;
+  } catch (error) {
+    return undefined;
+  }
+};
+
 /** TODO: Zod */
 type InsertDataParams = {
   health: {
@@ -19,7 +31,7 @@ type InsertDataParams = {
   };
   work: {
     work?: number;
-    productive: number;
+    productive?: number;
   };
   misc: {
     todayWas: string;
@@ -66,11 +78,7 @@ export const insertData = async ({
         question_id: 5,
         responseString: mood,
       },
-      {
-        category: "number",
-        question_id: 7,
-        responseNumber: productive.toString(),
-      },
+
       {
         category: "string",
         question_id: 12,
@@ -85,6 +93,17 @@ export const insertData = async ({
           category: "number",
           question_id: 6,
           responseNumber: work.toString(),
+        },
+      ];
+    }
+
+    if (productive) {
+      values = [
+        ...values,
+        {
+          category: "number",
+          question_id: 7,
+          responseNumber: productive.toString(),
         },
       ];
     }
@@ -117,9 +136,11 @@ export const insertData = async ({
       ];
     }
 
-    const queryClient = postgres(process.env.POSTGRES_URL!, {
-      ssl: "require",
-    });
+    const queryClient = connectDb();
+
+    if (queryClient === undefined) {
+      throw new Error();
+    }
 
     const db: PostgresJsDatabase = drizzle(queryClient);
 
