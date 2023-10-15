@@ -6,7 +6,7 @@ import { data } from "./schemas.server";
 
 export const insertData = async () => {
   try {
-    const queryClient = postgres(process.env.POSTGRES_DB!, {
+    const queryClient = postgres(process.env.POSTGRES_URL!, {
       ssl: "require",
     });
 

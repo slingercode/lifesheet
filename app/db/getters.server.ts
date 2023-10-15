@@ -9,7 +9,7 @@ import type { Data } from "./schemas.server";
 
 export const getData = async (): Promise<Data[]> => {
   try {
-    const queryClient = postgres(process.env.POSTGRES_DB!, {
+    const queryClient = postgres(process.env.POSTGRES_URL!, {
       ssl: "require",
     });
 
