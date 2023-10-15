@@ -1,7 +1,4 @@
 import { Form } from "@remix-run/react";
-import { json, redirect } from "@remix-run/node";
-
-import { auth, sessionCookie } from "~/session/auth.server";
 
 import { Input } from "~/ui/input";
 import { Label } from "~/ui/label";
@@ -20,60 +17,7 @@ import {
   CollapsibleTrigger,
 } from "~/ui/collapsible";
 
-import type { ActionFunctionArgs, LoaderFunctionArgs } from "@remix-run/node";
-
-export const action = async ({ request }: ActionFunctionArgs) => {
-  const formData = await request.formData();
-
-  const hoursOfSleep = Number(formData.get("hoursOfSleep"));
-  const mood = String(formData.get("mood"));
-  const steps = Number(formData.get("steps"));
-  const poop = Number(formData.get("poop"));
-  const water = Number(formData.get("water"));
-  const productive = Number(formData.get("productive"));
-  const work = Number(formData.get("work"));
-  const lolGames = Number(formData.get("lolGames"));
-  const lolWins = Number(formData.get("lolWins"));
-  const lolPanas = String(formData.get("lolPanas")) !== "null" ? true : false;
-  const lolTilt = String(formData.get("lolTilt")) !== "null" ? true : false;
-  const todayWas = String(formData.get("todayWas"));
-
-  console.log({
-    hoursOfSleep,
-    mood,
-    todayWas,
-    steps,
-    poop,
-    water,
-    work,
-    productive,
-    lolGames,
-    lolWins,
-    lolPanas,
-    lolTilt,
-  });
-
-  return json({});
-};
-
-export const loader = async ({ request }: LoaderFunctionArgs) => {
-  try {
-    console.log("LOADER");
-
-    const session = await auth(request);
-
-    return json(
-      {},
-      {
-        headers: {
-          "Set-Cookie": await sessionCookie.serialize(session),
-        },
-      },
-    );
-  } catch (error) {
-    return redirect("/");
-  }
-};
+export { action, loader } from "~/server/capture";
 
 export default function Capture() {
   return (
@@ -161,6 +105,7 @@ export default function Capture() {
               <SelectItem value="sunny">Sunny</SelectItem>
               <SelectItem value="cloudy">Cloudy</SelectItem>
               <SelectItem value="rainy">Rainy</SelectItem>
+              <SelectItem value="mixed">mixed(cloudy/sunny)</SelectItem>
             </SelectContent>
           </Select>
         </div>
