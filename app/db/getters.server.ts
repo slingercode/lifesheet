@@ -5,9 +5,9 @@ import postgres from "postgres";
 
 import { data } from "./schemas.server";
 
-import type { Data } from "./schemas.server";
+import type { PgSelectData } from "./schemas.server";
 
-export const getData = async (): Promise<Data[]> => {
+export const getData = async (): Promise<PgSelectData[]> => {
   try {
     const queryClient = postgres(process.env.POSTGRES_URL!, {
       ssl: "require",
@@ -15,7 +15,7 @@ export const getData = async (): Promise<Data[]> => {
 
     const db: PostgresJsDatabase = drizzle(queryClient);
 
-    const response: Data[] = await db
+    const response: PgSelectData[] = await db
       .select({
         ...getTableColumns(data),
         formatted: sql<string>`to_char(timestamp, 'DD Month YYYY')`,

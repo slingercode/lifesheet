@@ -1,0 +1,112 @@
+{
+  "version": "5",
+  "dialect": "pg",
+  "id": "fde174ec-43a4-4e56-b80c-682db1cceafb",
+  "prevId": "11ffbbc7-a273-4e75-9897-f8183c80b9bc",
+  "tables": {
+    "lifesheet": {
+      "name": "lifesheet",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "bigserial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "category": {
+          "name": "category",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "question_id": {
+          "name": "question_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "response_string": {
+          "name": "response_string",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "response_boolean": {
+          "name": "response_boolean",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "response_number": {
+          "name": "response_number",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "timestamp": {
+          "name": "timestamp",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "lifesheet_question_id_lifesheet_questions_id_fk": {
+          "name": "lifesheet_question_id_lifesheet_questions_id_fk",
+          "tableFrom": "lifesheet",
+          "tableTo": "lifesheet_questions",
+          "columnsFrom": [
+            "question_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "lifesheet_questions": {
+      "name": "lifesheet_questions",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "question": {
+          "name": "question",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "lifesheet_questions_question_unique": {
+          "name": "lifesheet_questions_question_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "question"
+          ]
+        }
+      }
+    }
+  },
+  "enums": {},
+  "schemas": {},
+  "_meta": {
+    "schemas": {},
+    "tables": {},
+    "columns": {}
+  }
+}

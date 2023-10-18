@@ -1,0 +1,1 @@
+ALTER TABLE "lifesheet_questions" ADD CONSTRAINT "lifesheet_questions_question_unique" UNIQUE("question");

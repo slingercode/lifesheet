@@ -1,0 +1,104 @@
+{
+  "version": "5",
+  "dialect": "pg",
+  "id": "30f23685-9a07-41ee-9968-77476100b53c",
+  "prevId": "a3a62fca-a711-4b98-9b04-9d3b417a7b66",
+  "tables": {
+    "lifesheet": {
+      "name": "lifesheet",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "bigserial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "category": {
+          "name": "category",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "question_id": {
+          "name": "question_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "response_string": {
+          "name": "response_string",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "response_boolean": {
+          "name": "response_boolean",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "response_number": {
+          "name": "response_number",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "timestamp": {
+          "name": "timestamp",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "lifesheet_question_id_lifesheet_questions_id_fk": {
+          "name": "lifesheet_question_id_lifesheet_questions_id_fk",
+          "tableFrom": "lifesheet",
+          "tableTo": "lifesheet_questions",
+          "columnsFrom": [
+            "question_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "lifesheet_questions": {
+      "name": "lifesheet_questions",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "question": {
+          "name": "question",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    }
+  },
+  "enums": {},
+  "schemas": {},
+  "_meta": {
+    "schemas": {},
+    "tables": {},
+    "columns": {}
+  }
+}
