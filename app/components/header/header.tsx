@@ -20,11 +20,19 @@ export const Header = ({ session, db }: HeaderProps) => {
         </Link>
 
         {session && (
-          <Button variant="ghost" size="sm">
-            <Link href="/capture" className="font-light hover:no-underline">
-              capture
-            </Link>
-          </Button>
+          <>
+            <Button variant="ghost" size="sm">
+              <Link href="/data" className="font-light hover:no-underline">
+                data
+              </Link>
+            </Button>
+
+            <Button variant="ghost" size="sm">
+              <Link href="/capture" className="font-light hover:no-underline">
+                capture
+              </Link>
+            </Button>
+          </>
         )}
       </nav>
 

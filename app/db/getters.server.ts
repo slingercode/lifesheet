@@ -1,6 +1,6 @@
 import type { PostgresJsDatabase } from "drizzle-orm/postgres-js";
 import { drizzle } from "drizzle-orm/postgres-js";
-import { sql, getTableColumns } from "drizzle-orm";
+import { sql, getTableColumns, desc } from "drizzle-orm";
 import postgres from "postgres";
 
 import { data } from "./schemas.server";
@@ -18,9 +18,11 @@ export const getData = async (): Promise<PgSelectData[]> => {
     const response: PgSelectData[] = await db
       .select({
         ...getTableColumns(data),
-        formatted: sql<string>`to_char(timestamp, 'DD Month YYYY')`,
+        formatted: sql<string>`to_char(${data.timestamp} at time zone 'utc' at time zone 'cst', 'DD Month YYYY')`,
       })
-      .from(data);
+      .from(data)
+      .orderBy(desc(data.timestamp))
+      .limit(100);
 
     return response;
   } catch (error: any) {
