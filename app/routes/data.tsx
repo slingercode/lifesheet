@@ -1,4 +1,5 @@
 import { useLoaderData } from "@remix-run/react";
+import { Table } from "~/components/data";
 
 import { loader } from "~/server/data";
 
@@ -8,14 +9,8 @@ export default function Data() {
   const { data } = useLoaderData<typeof loader>();
 
   return (
-    <div>
-      {data.map(({ id, timestamp, formatted }) => (
-        <div key={id}>
-          <p>{id}</p>
-          <p>{timestamp}</p>
-          <p>{formatted}</p>
-        </div>
-      ))}
+    <div className="p-5">
+      <Table data={data} />
     </div>
   );
 }
