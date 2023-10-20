@@ -42,7 +42,7 @@ export const auth = async (request: Request) => {
       return jwt;
     }
 
-    throw new Error();
+    return "";
   } catch (error) {
     throw new Error();
   }

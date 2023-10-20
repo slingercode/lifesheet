@@ -8,6 +8,10 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
   try {
     const session = await auth(request);
 
+    if (session === "") {
+      throw new Error();
+    }
+
     return json(
       {},
       {
