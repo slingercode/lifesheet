@@ -21,6 +21,8 @@ export default function Index() {
   const { sleepHours } = useLoaderData<typeof loader>();
   const { avgSleepHours } = useData({ sleepHours });
 
+  const { month, week } = avgSleepHours();
+
   Chart.register();
 
   return (
@@ -30,12 +32,12 @@ export default function Index() {
       <div className="flex w-full flex-col items-center pt-10">
         <p className="font-light">
           Avg in a week:
-          <span className="font-bold">{` ~${avgSleepHours.week}`}</span>
+          <span className="font-bold">{` ~${week}`}</span>
         </p>
 
         <p className="font-light">
           Avg in a month:
-          <span className="font-bold">{` ~${avgSleepHours.month}`}</span>
+          <span className="font-bold">{` ~${month}`}</span>
         </p>
       </div>
     </div>
