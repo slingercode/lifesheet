@@ -10,6 +10,10 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
     const session = await auth(request);
     const data = await getData();
 
+    if (session === "") {
+      throw new Error();
+    }
+
     return json(
       { data },
       {

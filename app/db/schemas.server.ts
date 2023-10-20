@@ -33,3 +33,8 @@ export type PgSelectData = typeof data.$inferSelect & {
 };
 
 export type PgInsertData = typeof data.$inferInsert;
+
+export type PgSelectSleepData = {
+  sleep: number;
+  date: string;
+};

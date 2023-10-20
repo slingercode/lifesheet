@@ -27,14 +27,10 @@ export const links: LinksFunction = () => [
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
   try {
-    await auth(request);
     const db = connectDb();
+    const session = await auth(request);
 
-    if (db === undefined) {
-      return json({ session: true, db: false });
-    }
-
-    return json({ session: true, db: true });
+    return json({ session: session !== "", db: db !== undefined });
   } catch (error) {
     return json({ session: false, db: false });
   }
