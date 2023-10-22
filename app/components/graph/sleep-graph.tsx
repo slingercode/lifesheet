@@ -12,13 +12,13 @@ type SleepGraphProps = {
 export const SleepGraph = ({ sleepHours }: SleepGraphProps) => {
   const { resolvedTheme } = useTheme();
 
-  const labels = useMemo(
-    () => sleepHours.map(({ date }) => date),
+  const hours = useMemo(
+    () => sleepHours.map(({ sleep }) => sleep),
     [sleepHours],
   );
 
-  const hours = useMemo(
-    () => sleepHours.map(({ sleep }) => sleep),
+  const labels = useMemo<ChartProps["data"]["labels"]>(
+    () => sleepHours.map(({ date }) => date),
     [sleepHours],
   );
 
@@ -29,13 +29,29 @@ export const SleepGraph = ({ sleepHours }: SleepGraphProps) => {
         {
           label: "Sleep hours",
           data: hours,
-          backgroundColor:
-            resolvedTheme === "light" ? "rgb(10, 10, 10)" : "#F2DDA4",
+          backgroundColor: resolvedTheme === "light" ? "#fcd34d" : "#fde68a",
         },
       ],
     }),
     [hours, labels, resolvedTheme],
   );
 
-  return <Chart type="bar" data={data} />;
+  const options = useMemo<ChartProps["options"]>(
+    () => ({
+      scales: {
+        x: {
+          title: {
+            display: true,
+            text: "Days",
+          },
+          ticks: {
+            display: false,
+          },
+        },
+      },
+    }),
+    [],
+  );
+
+  return <Chart type="bar" data={data} options={options} />;
 };
